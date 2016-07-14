@@ -8,5 +8,5 @@ setup(name='trellofunnel',
       author='Charles Yang',
       author_email='cjy0125@livemail.tw',
       license='MIT',
-      packages=['funniest'],
+      packages=['trellofunnel', 'ijson'],
       zip_safe=False)
