@@ -1,6 +1,5 @@
 # trellofunnel
-This is a sample class which using to filter out cards by different keys, the data source is exported JSON from Trello.
-
+This is a simple python class which is using to filter out cards by different keys, the data source is exported JSON from Trello.
 
 
 |function name               | description                        |
@@ -13,7 +12,7 @@ This is a sample class which using to filter out cards by different keys, the da
 |cardsFilterByMembers        | Filter by members (TBD)            |
 
 
-# Sample Usage
+# Usage example
 ```
 >>> from trellofunnel import trellofunnel
 >>> o = trellofunnel.trellofunnel('/tmp/trello.json')
@@ -21,7 +20,7 @@ This is a sample class which using to filter out cards by different keys, the da
 >>> o.cardsFilterByLastUpdateDate(7)
 >>> print o.viewCardsByKeys(['idList', 'labels', 'name'])
 
-	ToDo 	  [Dev]	Improve the flow
+	ToDo 	[Dev]	Improve the flow
 	Doing 	[Ops]	Switch account
-	Done 	  [Server]	Upgrade package
+	Done 	[Server]	Upgrade package
 ```
