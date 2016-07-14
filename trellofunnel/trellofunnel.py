@@ -29,6 +29,7 @@ class trellofunnel():
         return time.mktime(datetime.datetime.strptime(timestr[:19], "%Y-%m-%dT%H:%M:%S").timetuple())
 
     def viewCardsByKeys(self, keys):
+        result = ''
         for i in range(len(self.cards)):
             output = ''
             for j in keys:
@@ -40,7 +41,8 @@ class trellofunnel():
                     output = '{}\t{}'.format(output, self.mapLists.get(self.cards[i][j]))
                 else:
                     output = '{}\t{}'.format(output, self.cards[i][j])
-            print output
+            result = '{}\n{}'.format(result, output)
+        return result
 
     def cardsFilterByLabels(self, filter):
         pass
