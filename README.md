@@ -15,7 +15,7 @@ This is a simple python class which is using to filter out cards by different ke
 # Usage example
 ```
 >>> from trellofunnel import trellofunnel
->>> o = trellofunnel.trellofunnel('/tmp/trello.json')
+>>> o = trellofunnel('/tmp/trello.json')
 >>> o.cardsFilterByClosed()
 >>> o.cardsFilterByLastUpdateDate(7)
 >>> print o.viewCardsByKeys(['idList', 'labels', 'name'])
