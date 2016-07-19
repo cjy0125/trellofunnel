@@ -5,12 +5,14 @@ import datetime
 import types
 
 class trellofunnel():
-    def __init__(self, file):
-        self.file = file
-        self.reload()
+    def __init__(self, **kwargs):
+        if kwargs.has_key('file'):
+            self.loadFromFile(kwargs.get('file'))
+        if kwargs.has_key('user') & kwargs.has_key('password'):
+            self.loadFromTrello( user = kwargs.get('user'), password = kwargs.get('password'))
 
-    def reload(self):
-        with open(self.file) as f:
+    def loadFromFile(self, file):
+        with open(file) as f:
             obj = ijson.items(f, '')
             self.rawdata = list(obj)[0]
             self.members = self.rawdata.pop('members', None)
@@ -20,6 +22,9 @@ class trellofunnel():
             self.normalizeDateLastActivity()
             self.updateListsMapping()
             self.updateLabelsMapping()
+
+    def loadFromTrello(self, user, password):
+        pass
 
     def normalizeDateLastActivity(self):
         for i in range(len(self.cards)):
