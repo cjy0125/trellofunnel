@@ -3,13 +3,14 @@ import json
 import time
 import datetime
 import types
+import requests
 
 class trellofunnel():
     def __init__(self, **kwargs):
         if kwargs.has_key('file'):
             self.loadFromFile(kwargs.get('file'))
-        if kwargs.has_key('user') & kwargs.has_key('password'):
-            self.loadFromTrello( user = kwargs.get('user'), password = kwargs.get('password'))
+        else :
+            self.loadFromTrello(kwargs)
 
     def __parseCards(self, strRawdata):
         self.rawdata = json.loads(strRawdata)
@@ -26,8 +27,10 @@ class trellofunnel():
         with open(file) as f:
             self.__parseCards(f.read())
 
-    def loadFromTrello(self, user, password):
-        pass
+    def loadFromTrello(self, kwargs):
+        cookies = dict(item.split('=', 1) for item in kwargs.get('cookies').split(';'))
+        r = requests.get(kwargs.get('url'), cookies = cookies)
+        self.__parseCards(r.text)
 
     def normalizeDateLastActivity(self):
         for i in range(len(self.cards)):
