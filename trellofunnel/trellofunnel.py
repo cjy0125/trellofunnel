@@ -11,16 +11,20 @@ class trellofunnel():
         if kwargs.has_key('user') & kwargs.has_key('password'):
             self.loadFromTrello( user = kwargs.get('user'), password = kwargs.get('password'))
 
+    def __parseCards(self, strRawdata):
+        self.rawdata = json.loads(strRawdata)
+        self.members = self.rawdata.pop('members', None)
+        self.cards = self.rawdata.pop('cards', None)
+        self.labels = self.rawdata.pop('labels', None)
+        self.lists = self.rawdata.pop('lists', None)
+        self.normalizeDateLastActivity()
+        self.updateListsMapping()
+        self.updateLabelsMapping()
+
+
     def loadFromFile(self, file):
         with open(file) as f:
-            self.rawdata = json.loads(f.read())
-            self.members = self.rawdata.pop('members', None)
-            self.cards = self.rawdata.pop('cards', None)
-            self.labels = self.rawdata.pop('labels', None)
-            self.lists = self.rawdata.pop('lists', None)
-            self.normalizeDateLastActivity()
-            self.updateListsMapping()
-            self.updateLabelsMapping()
+            self.__parseCards(f.read())
 
     def loadFromTrello(self, user, password):
         pass
