@@ -9,5 +9,4 @@ setup(name='trellofunnel',
       author_email='cjy0125@livemail.tw',
       license='MIT',
       packages=['trellofunnel'],
-      install_requires=['ijson'],
       zip_safe=False)

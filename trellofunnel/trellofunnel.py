@@ -1,5 +1,5 @@
 # Library for parsing Trello json and filter out unwanted items
-import ijson
+import json
 import time
 import datetime
 import types
@@ -13,8 +13,7 @@ class trellofunnel():
 
     def loadFromFile(self, file):
         with open(file) as f:
-            obj = ijson.items(f, '')
-            self.rawdata = list(obj)[0]
+            self.rawdata = json.loads(f.read())
             self.members = self.rawdata.pop('members', None)
             self.cards = self.rawdata.pop('cards', None)
             self.labels = self.rawdata.pop('labels', None)
