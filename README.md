@@ -26,10 +26,10 @@ Use local file /tmp/trello.json
 	Done 	[Server]	Upgrade package
 ```
 
-(Temporary) Use token to download JSON from Trello
+Download JSON from Trello
 ```
 >>> from trellofunnel import trellofunnel
->>> o = trellofunnel(url= 'https://trello.com/b/ruxunrrp.json', cookies = 'token=xxxxxxx')
+>>> o = trellofunnel(url= 'https://trello.com/b/ruxunrrp.json', user = 'UserAccount', password = 'P@SSw0rd')
 >>> o.cardsFilterByClosed()
 >>> o.cardsFilterByLastUpdateDate(7)
 >>> print o.viewCardsByKeys(['idList', 'labels', 'name'])
