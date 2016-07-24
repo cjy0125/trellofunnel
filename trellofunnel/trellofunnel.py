@@ -30,15 +30,28 @@ and the data source is an exported JSON from Trello.\n"""
     def __timeToTimstamp(self, timestr):
         return time.mktime(datetime.datetime.strptime(timestr[:19], "%Y-%m-%dT%H:%M:%S").timetuple())
 
+    def getTrelloToken(self, user, password):
+        r = requests.get('https://trello.com')
+        dsc = r.cookies.get_dict()['dsc']
+
+        payload = {'method': 'password', 'factors[user]': user, 'factors[password]': password}
+        r = requests.post('https://trello.com/1/authentication', data = payload, cookies={'dsc':dsc})
+        code = json.loads(r.text)['code']
+
+        payload = {'dsc': dsc, 'authentication': code}
+        r = requests.post('https://trello.com/1/authorization/session', data = payload, cookies={'dsc':dsc})
+        cookies = r.cookies.get_dict()
+        return cookies['token']
+
     def loadFromFile(self, file):
         """Load JSON from file\nArgs:\n\tfile (str) : file path"""
         with open(file) as f:
             self.__parseCards(f.read())
 
     def loadFromTrello(self, kwargs):
-        """Load JSON from Trello online (developing)"""
-        cookies = dict(item.split('=', 1) for item in kwargs.get('cookies').split(';'))
-        r = requests.get(kwargs.get('url'), cookies = cookies)
+        """Load JSON from Trello online\nArgs:\n\tuser (str)\n\tpassword (str)\n\turl (str): JSON download path"""
+        token = self.getTrelloToken(user = kwargs.get('user'), password = kwargs.get('password'))
+        r = requests.get(url = kwargs.get('url'), cookies = {'token' : token})
         self.__parseCards(r.text)
 
     def viewCardsByKeys(self, keys):
