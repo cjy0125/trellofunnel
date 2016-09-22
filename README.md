@@ -12,6 +12,13 @@ This is a simple python class which is using to filter out cards by different ke
 |cardsFilterByMembers        | Filter by members (TBD)            |
 
 
+# Installation
+Use following command for installation, install this directly or in the virtualenv. 
+```
+pip install git+https://github.com/cjy0125/trellofunnel.git
+```
+**Make sure permission is sufficient for installation.
+
 # Usage example
 Use local file /tmp/trello.json
 ```
