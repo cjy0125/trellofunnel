@@ -8,8 +8,8 @@ This is a simple python class which is using to filter out cards by different ke
 |cardsFilterByClosed(boolean)| Filter out closed cards            |
 |cardsFilterByLastUpdateDate(int) | Filter out update dated over n days|
 |cardsFilterByList(idList)   | Filter by ID of List               | 
-|cardsFilterByLabels         | Filter by labels (TBD)             |
-|cardsFilterByMembers        | Filter by members (TBD)            |
+|cardsFilterByLabels         | Filter by labels                   |
+|cardsFilterByMembers        | Filter by members (FullName)       |
 
 
 # Installation
@@ -26,6 +26,8 @@ Use local file /tmp/trello.json
 >>> o = trellofunnel(file = '/tmp/trello.json')
 >>> o.cardsFilterByClosed()
 >>> o.cardsFilterByLastUpdateDate(7)
+>>> o.cardsFilterByLabels(['Dev', 'Ops', 'Server'])
+>>> o.cardsFilterByMembers(['Charles Yang', 'John Doe'])
 >>> print o.viewCardsByKeys(['idList', 'labels', 'name'])
 
 	ToDo 	[Dev]	Improve the flow
@@ -39,6 +41,8 @@ Download JSON from Trello
 >>> o = trellofunnel(url= 'https://trello.com/b/ruxunrrp.json', user = 'UserAccount', password = 'P@SSw0rd')
 >>> o.cardsFilterByClosed()
 >>> o.cardsFilterByLastUpdateDate(7)
+>>> o.cardsFilterByLabels(['Dev', 'Ops', 'Server'])
+>>> o.cardsFilterByMembers(['Charles Yang', 'John Doe'])
 >>> print o.viewCardsByKeys(['idList', 'labels', 'name'])
 
     ToDo    [Dev]   Improve the flow
