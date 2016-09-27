@@ -72,9 +72,16 @@ Return:\n\tstr : a string for each fields of remaining cards"""
             result = '{}\n{}'.format(result, output)
         return result
 
-    def cardsFilterByLabels(self, filter):
-        """TBD"""
-        pass
+    def cardsFilterByLabels(self, labels):
+        """Filter cards by name of label\nArgs:\n\tlabels array(str): array of label names\n"""
+        for i in reversed(range(len(self.cards))):
+            dropFlag = True
+            for label in self.cards[i]['labels']:
+                if self.mapLabels[label['id']] in labels:
+                    dropFlag = False
+                    break
+            if dropFlag == True:
+                self.cards.pop(i)
 
     def cardsFilterByMembers(self, filter):
         """TBD"""
