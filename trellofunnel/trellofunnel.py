@@ -22,6 +22,7 @@ and the data source is an exported JSON from Trello.\n"""
         self.__normalizeDateLastActivity()
         self.updateListsMapping()
         self.updateLabelsMapping()
+        self.updateMembersMapping()
 
     def __normalizeDateLastActivity(self):
         for i in range(len(self.cards)):
@@ -83,9 +84,16 @@ Return:\n\tstr : a string for each fields of remaining cards"""
             if dropFlag == True:
                 self.cards.pop(i)
 
-    def cardsFilterByMembers(self, filter):
-        """TBD"""
-        pass
+    def cardsFilterByMembers(self, fullNames):
+        """Filter cards by fullname of members\nArgs:\n\tfullNames array(str): array of fullnames\n"""
+        for i in reversed(range(len(self.cards))):
+            dropFlag = True
+            for idMember in self.cards[i]['idMembers']:
+                if self.mapMembers[idMember] in fullNames:
+                    dropFlag = False
+                    break
+            if dropFlag == True:
+                self.cards.pop(i)
 
     def cardsFilterByList(self, listId):
         """Filter cards by ID of list\nArgs:\n\tlistId str : refer self.mapLists to get listId\n"""
@@ -116,6 +124,11 @@ Args:\n\tboolean (bool) : Flag only available for True/False\n"""
         self.mapLabels = {}
         for i in self.labels:
             self.mapLabels[i['id']] = i['name']
+
+    def updateMembersMapping(self):
+        self.mapMembers = {}
+        for i in self.members:
+            self.mapMembers[i['id']] = i['fullName']
 
 if __name__ == '__main__':
     pass
